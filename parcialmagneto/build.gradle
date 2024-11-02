@@ -1,0 +1,69 @@
+plugins {
+	// Plugin para Spring Boot
+	id 'org.springframework.boot' version '3.3.3' // Ajusta a la versión más reciente
+	id 'io.spring.dependency-management' version '1.1.6' // Plugin para manejar dependencias
+	id 'java' // Plugin para proyectos Java
+}
+
+group = 'com.demo.parcialmagneto' // Grupo del proyecto
+version = '0.0.1-SNAPSHOT' // Versión del proyecto
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	// Repositorios donde buscar dependencias
+	mavenCentral()
+}
+
+dependencies {
+
+	// Starter de Spring Boot para aplicaciones web (incluye Spring MVC)
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Starter de Spring Boot para validación
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// JPA para manejo de entidades
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Base de datos H2 en memoria para pruebas
+	runtimeOnly 'com.h2database:h2'
+
+	implementation 'mysql:mysql-connector-java:8.0.33'
+
+	// Lombok para simplificar el código (proporciona anotaciones para reducir el boilerplate)
+	compileOnly 'org.projectlombok:lombok' // Cambiado a compileOnly
+	annotationProcessor 'org.projectlombok:lombok' // Procesador de anotaciones para Lombok
+
+	// OpenAPI Swagger para documentación
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+	// MapStruct para mapeo de DTOs
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0" // Para integración con Lombok
+
+	// Dependencia de pruebas
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Incluye dependencias para pruebas
+	}
+
+// Configura la tarea de prueba para usar JUnit 5
+tasks.named('test') {
+	useJUnitPlatform() // Habilita JUnit 5 como el framework de pruebas
+}
+
+tasks.jar {
+	enabled = true // Habilitar la tarea de jar
+}
+
+bootJar {
+	enabled = true // Habilitar la tarea de bootJar
+}
